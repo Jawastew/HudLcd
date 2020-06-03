@@ -1,0 +1,99 @@
+HudLcd displays the Text of selected LCDs on your HUD!
+
+[h1] Now with multiple LCDs, and lots of colour options! [/h1]
+
+This Mod is written with little C# experience (mainly C++, Java) and I haven't had the time to do extensive Bug tests. (I will Hotfix as soon as bugs come to my attention.)
+
+[b]Requires the Text HUD API![/b]
+
+[h1]Features:[/h1]
+    - Display multiple LCDs on your HUD
+    - Configure Position, Fontsize and Colour!
+    - Debug and Monospace font support (thanks to Text HUD API v2)
+
+[h1]ToDo:[/h1]
+    - [strike]figure out how to make Text HUD API use custom Fonts (not a Monofont version; this helps display Automatic LCDs Scripts/etc)[/strike] semi fixed with Debug and Monospace Font support.
+
+[h1]How do I display my LCD?[/h1]
+    
+    To display an LCD on your HUD write a line in the LCD [b]Custom Data[/b] tagged with "hudlcd". The LCD has to be on the same grid you are controlling! (Not connected via landing gear or connectors). Controlling a grid means you are sitting in a cockpit, remote controlling or viewing through a camera.
+    If you already have something in your Custom Data for a Script (like Automatic LCDs 2) you can also prepend the hudlcd with // so the script treats the line as a comment (the Script must support some sort of comment system).
+    For Automatic LCDs this can be achieved by beginning a line with "// hudlcd".
+    
+    It is also possible to use the LCD [b]Title[/b] but it is currently unreliable due to a [url=https://support.keenswh.com/spaceengineers/pc/topic/getpublictitlte-on-lcds-empty]current bug[/url] in SE. Meaning it works well to finetune your formatting because you can see the changes you are making in realtime if you have your UI background opacity turned down. Unfortunately due to this bug you have to refresh (change) the Title every time you reload your save. So I encourage you to make the finetuning of the formatting in the [b]Title[/b] and then save the final tag in your [b]Custom Data[/b].
+    
+    The Title is evaluated before Custom Data.
+    
+    You can adjust the positioning, fontsize, colour, shadow of the LCD Text on your HUD by adding the following to the tag:
+    
+    [b]Format:[/b]
+    
+    hudlcd:{PosX}:{PosY}:{Fontsize}:{Colour}:{Shadow}
+    
+    If you want to use the default value of any of the Parameters just leave it blank.
+    Example:
+    Only changing the colour would look like so: hudlcd::::Red
+    Only changing the position: hudlcd:-1:1
+
+    [b]Posx/PosY[/b]
+    The middle of your screen is 0:0.
+    PosX adjusts the horizontal alignment, PosY the vertical.
+    Both values have to be between -1 and 1.
+    PosX: (left) -1 <- 0 -> 1 (right)
+    PosY: (bottom) -1 <- 0 -> 1 (top)
+    [code]
+    +----------+
+    |     1    |
+    |     |    |
+    |-1 --0-- 1|
+    |     |    |
+    |    -1    |
+    +----------+
+    [/code]
+    Examples:
+    Top-Left: hudlcd:-1:1
+    Above your Hotbar: hudlcd:-0.35:-0.65
+    Default: hudlcd:-0.98:-0.2 (this places the text over your left HUD elements as seen in the first screenshot)
+    
+    [b]Fontsize[/b]
+    1 is normal size
+    2 is double size
+    0.5 is half size
+    
+    You can flip the Text on it's head by making this value negative, ¯\_(ツ)_/¯ 
+    
+    Example:
+    Half Fontsize: hudlcd:::0.5
+    Default: uses the LCD Font Size
+    
+    [b]Colour[/b]
+    By default HudLcd will try and get the Font Colour of the LCD Panel.
+    If you don't like that then you have several options of changing this:
+    The following formats work for the Colour option:
+    
+    [b]{Colourname}[/b], taken from the long list below
+    Example:
+    Red: hudlcd::::red
+    
+    [b]{r,g,b}[/b] or [b]{r,g,b,a}[/b]   
+    where r = red [0-255], b = blue [0-255], g = green [0-255], a = alpha [0-255]
+    Example: 
+    pink: hudlcd::::255,0,255
+    white with reduced alpha: hudlcd::::255,255,255,150
+    
+    At any point in the Text of your LCD you can use the tag <color={Colour}> to change the following text.
+    
+
+  [b]Shadow[/b]
+   You can apply a shadow to the text by setting this to 1.
+   Example: hudlcd::::red:1
+   
+   
+[h1]Footnotes[/h1]
+    Featured in the Screenshot: [url=https://steamcommunity.com/sharedfiles/filedetails/?id=822950976]Automatic LCDs 2[/url]
+    Thanks to [url=http://steamcommunity.com/profiles/76561198177407838]Cheetah[/url] for suggesting to hook the mod into the LCD Panels instead of using the ControlledEntityChanged Event.
+    
+[b]All Colours supported by the Text HUD API:[/b]
+[code]
+aliceblue ,antiquewhite ,aqua ,aquamarine ,azure ,badetblue ,beige ,bisque ,black ,blanchedalmond ,blue ,blueviolet ,brown ,burlywood ,chartreuse ,chocolate ,coral ,cornflowerblue ,cornsilk ,crimson ,cyan ,darkblue ,darkcyan ,darkgoldenrod ,darkgray ,darkgreen ,darkkhaki ,darkmagenta ,darkoliveGreen ,darkorange ,darkorchid ,darkred ,darksalmon ,darkseagreen ,darkslateblue ,darkslategray ,darkturquoise ,darkviolet ,deeppink ,deepskyblue ,dimgray ,dodgerblue ,doneydew ,firebrick ,floralwhite ,forestgreen ,fuchsia ,gainsboro ,ghostwhite ,gold ,goldenrod ,gray ,green ,greenyellow ,hotpink ,indianred ,indigo ,ivory ,khaki ,lavender ,lavenderblush ,lawngreen ,lemonchiffon ,lightblue ,lightcoral ,lightcyan ,lightgoldenrodyellow ,lightgray ,lightgreen ,lightpink ,lightsalmon ,lightseagreen ,lightskyblue ,lightslategray ,lightsteelblue ,lightyellow ,lime ,limegreen ,linen ,magenta ,maroon ,mediumaquamarine ,mediumblue ,mediumorchid ,mediumpurple ,mediumseagreen ,mediumslateblue ,mediumspringgreen ,mediumturquoise ,mediumvioletred ,midnightblue ,mintcream ,mistyrose ,moccasin ,navajowhite ,navy ,oldlace ,olive ,olivedrab ,orange ,orangered ,orchid ,palegoldenrod ,palegreen ,paleturquoise ,palevioletred ,papayawhip ,peachpuff ,peru ,pink ,plum ,powderblue ,purple ,red ,rosybrown ,royalblue ,saddlebrown ,salmon ,sandybrown ,seagreen ,seashell ,sienna ,silver ,skyblue ,slateblue ,slategray ,snow ,springgreen ,steelblue ,tan ,teal ,thistle ,tomato ,turquoise ,violet ,wheat ,white ,whitesmoke ,yellow ,yellowgreen
+[/code]
