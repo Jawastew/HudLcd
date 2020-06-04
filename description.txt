@@ -92,6 +92,7 @@ This Mod is written with little C# experience (mainly C++, Java) and I haven't h
 [h1]Footnotes[/h1]
     Featured in the Screenshot: [url=https://steamcommunity.com/sharedfiles/filedetails/?id=822950976]Automatic LCDs 2[/url]
     Thanks to [url=http://steamcommunity.com/profiles/76561198177407838]Cheetah[/url] for suggesting to hook the mod into the LCD Panels instead of using the ControlledEntityChanged Event.
+    If you have any suggestions or similar you can open a pull request here: https://github.com/Jawastew/HudLcd
     
 [b]All Colours supported by the Text HUD API:[/b]
 [code]
