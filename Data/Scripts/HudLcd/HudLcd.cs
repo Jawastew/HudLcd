@@ -49,7 +49,7 @@ namespace Jawastew.HudLcd
         string thisTextFont = textFontDefault;
         bool thisTextFontShadow = textFontShadowDefault;
 
-        IMyTerminalBlock ControlledEntity => MyAPIGateway.Session.LocalHumanPlayer.Controller.ControlledEntity as IMyTerminalBlock;
+        IMyTerminalBlock ControlledEntity => MyAPIGateway.Session?.LocalHumanPlayer?.Controller?.ControlledEntity as IMyTerminalBlock;;
         bool IsControlled => ControlledEntity != null && ControlledEntity.CubeGrid == thisTextPanel.CubeGrid;
 
         // Cache
