@@ -153,10 +153,11 @@ namespace Jawastew.HudLcd
             String[] lines = config.Split('\n');
             foreach (String line in lines)
             {
-                if (line.ToLower().Contains(configTag))
+                int hudlcdTagIndex = line.IndexOf(configTag, StringComparison.CurrentCultureIgnoreCase);
+                if (hudlcdTagIndex >= 0)
                 {
-                    if (debug && !config.Equals(configCache)) MyAPIGateway.Utilities.ShowMessage("HudLcd", "Detected Config Change: " + line.Substring(line.IndexOf(configTag)));
-                    String[] rawconf = line.Substring(line.IndexOf(configTag)).Split(configDelim); // remove everything before hudlcd in the string.
+                    if (debug && !config.Equals(configCache)) MyAPIGateway.Utilities.ShowMessage("HudLcd", "Detected Config Change: " + line.Substring(hudlcdTagIndex));
+                    String[] rawconf = line.Substring(hudlcdTagIndex).Split(configDelim); // remove everything before hudlcd in the string.
                     for (int i = 0; i < 6; i++)
                     {
                         if (rawconf.Length > i && rawconf[i].Trim() != "") // Set values from Config Line
